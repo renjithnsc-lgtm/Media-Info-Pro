@@ -2092,5 +2092,31 @@ a:hover {
     .app-header .brand-text p {
         display: none;
     }
+    
+    #search-tab {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: calc(100vh - 16rem);
+        padding: 1rem;
+    }
+    
+    .search-hero {
+        margin: 0 auto !important;
+        width: 100%;
+    }
+    
+    #search-tab:has(#detail-card-container:not(.hidden)) {
+        display: block;
+        min-height: auto;
+        padding: 1rem 0;
+    }
+    
+    .search-bar {
+        border-width: 2px !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.1) !important;
+        border-radius: 18px !important;
+    }
 }
 
