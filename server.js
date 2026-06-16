@@ -51,7 +51,10 @@ async function ensureDbInitialized() {
                 await initializeSchema();
                 console.log(`[Server] Active database engine: ${engine.toUpperCase()}`);
                 isDbInitialized = true;
-            })();
+            })().catch(err => {
+                dbInitPromise = null; // Allow retry on next request
+                throw err;
+            });
         }
         await dbInitPromise;
     }
@@ -64,7 +67,7 @@ app.use(async (req, res, next) => {
             await ensureDbInitialized();
         } catch (err) {
             console.error('[Server] Database initialization failed:', err);
-            return res.status(500).json({ success: false, message: 'Database initialization failed' });
+            return res.status(500).json({ success: false, message: 'DB Error: ' + (err.message || String(err)) });
         }
     }
     next();
