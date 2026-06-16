@@ -240,7 +240,7 @@ a:hover {
 }
 
 .brand-text .developer-tag {
-    font-size: 1.3rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     display: block;
     margin-top: 0.15rem;
@@ -2069,7 +2069,7 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .app-header .brand-text p, .app-header .developer-tag {
+    .app-header .brand-text p {
         display: none;
     }
 }
