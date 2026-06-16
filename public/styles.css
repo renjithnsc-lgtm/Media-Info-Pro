@@ -1742,17 +1742,37 @@ a:hover {
     padding-bottom: 5.6rem; /* space for bottom nav */
 }
 
-.header-actions .icon-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
+.header-actions .logout-btn {
+    background: rgba(244, 63, 94, 0.08) !important;
+    border: 1px solid rgba(244, 63, 94, 0.18) !important;
+    color: #f43f5e !important;
     cursor: pointer;
-    padding: 0.5rem;
-    transition: var(--transition-fast);
+    padding: 0.6rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.3rem;
+    height: 2.3rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.1);
 }
 
-.header-actions .icon-btn:hover {
-    color: var(--accent);
+.header-actions .logout-btn:hover,
+.header-actions .logout-btn:active {
+    background: rgba(244, 63, 94, 0.2) !important;
+    border-color: rgba(244, 63, 94, 0.35) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) rotate(-4deg);
+    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.25);
+}
+
+.header-actions .logout-btn i,
+.header-actions .logout-btn svg {
+    width: 1.1rem !important;
+    height: 1.1rem !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 /* Premium Profile Header */
