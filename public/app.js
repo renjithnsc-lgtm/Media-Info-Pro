@@ -178,6 +178,10 @@ function updateIndicators() {
     if (indicatorText) {
         indicatorText.textContent = `${count} ${count === 1 ? 'programme' : 'programmes'} loaded`;
     }
+    const homeTotal = document.getElementById("home-stat-total");
+    if (homeTotal) {
+        homeTotal.textContent = count;
+    }
 }
 
 // ==========================================================================
@@ -240,7 +244,15 @@ function initTabs() {
 
 function switchTab(tabId) {
     const btn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
-    if (btn) btn.click();
+    if (btn) {
+        btn.click();
+    } else {
+        // Fallback for tabs without a nav button (like Settings/PEX on mobile)
+        document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        const targetTab = document.getElementById(tabId);
+        if (targetTab) targetTab.classList.add("active");
+    }
 }
 
 // ==========================================================================

@@ -62,42 +62,55 @@
                 <div class="brand-text">
                     <h1>Media-Info <span>Pro 1.0</span></h1>
                     <p>Programme Directory Hub</p>
-                    <span class="developer-tag">Developed by Team Duty Officer</span>
-                    <span class="developer-tag">Akashavani Thiruvananthapuram</span>
                 </div>
             </div>
-            <nav class="app-nav">
-                <button class="nav-btn active" data-tab="search-tab">
-                    <i data-lucide="search"></i>
-                    <span>Search Programme</span>
-                </button>
-                <button class="nav-btn" data-tab="entry-tab">
-                    <i data-lucide="plus-circle"></i>
-                    <span>Data Entry</span>
-                </button>
-                <button class="nav-btn" data-tab="manage-tab">
-                    <i data-lucide="layout-list"></i>
-                    <span>Manage List</span>
-                </button>
-                <button class="nav-btn" data-tab="settings-tab">
-                    <i data-lucide="database"></i>
-                    <span>Backup & Restore</span>
-                </button>
-                <button class="nav-btn" data-tab="pex-tab">
-                    <i data-lucide="layers"></i>
-                    <span>PEX & Duties</span>
-                </button>
-                <button class="nav-btn logout-btn" id="logout-btn">
+            <div class="header-actions">
+                <button class="icon-btn logout-btn" id="logout-btn" title="Logout">
                     <i data-lucide="log-out"></i>
-                    <span>Logout</span>
                 </button>
-            </nav>
+            </div>
         </header>
 
         <!-- Main Workspace -->
         <main class="app-main">
+            <!-- TAB 0: Home Page -->
+            <section id="home-tab" class="tab-content active">
+                <div class="home-dashboard">
+                    <div class="home-greeting">
+                        <h2>Welcome back!</h2>
+                        <p>Manage your broadcasting directory seamlessly.</p>
+                    </div>
+                    
+                    <div class="home-stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper" style="color: var(--primary)"><i data-lucide="layers"></i></div>
+                            <div class="stat-content">
+                                <h3>Total Programmes</h3>
+                                <h2 id="home-stat-total">0</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="home-section-title">Quick Actions</h3>
+                    <div class="home-actions-grid">
+                        <button class="home-action-btn" onclick="switchTab('settings-tab')">
+                            <div class="action-icon" style="background: rgba(168, 85, 247, 0.15); color: var(--secondary)">
+                                <i data-lucide="database"></i>
+                            </div>
+                            <span>Backup & Restore</span>
+                        </button>
+                        <button class="home-action-btn" onclick="switchTab('pex-tab')">
+                            <div class="action-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--primary)">
+                                <i data-lucide="user-check"></i>
+                            </div>
+                            <span>PEX & Duties</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <!-- TAB 1: Search and Details -->
-            <section id="search-tab" class="tab-content active">
+            <section id="search-tab" class="tab-content">
                 <div class="search-hero">
                     <h2>Discover Programme Details</h2>
                     <p>Enter the name of a programme below to view executive coordinators and production team members instantly.</p>
@@ -404,15 +417,28 @@
             </section>
         </main>
         
-        <!-- Toast Notification system -->
         <div id="toast-container" class="toast-container"></div>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <p>&copy; 2026 Media-Info Pro 1.0. Crafted for seamless operations.</p>
-            <p class="db-indicator"><i data-lucide="circle-dot"></i> <span id="db-indicator-text">0 programmes loaded</span></p>
-        </footer>
     </div>
+
+    <!-- Bottom Mobile Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-tab="home-tab">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" data-tab="search-tab">
+            <i data-lucide="search"></i>
+            <span>Search</span>
+        </button>
+        <button class="nav-btn" data-tab="entry-tab">
+            <i data-lucide="plus-circle"></i>
+            <span>Add</span>
+        </button>
+        <button class="nav-btn" data-tab="manage-tab">
+            <i data-lucide="layout-list"></i>
+            <span>Manage</span>
+        </button>
+    </nav>
 
     <!-- Main JavaScript Logic -->
     <script src="app.js?v=2"></script>
