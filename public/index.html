@@ -76,9 +76,19 @@
             <!-- TAB 0: Home Page -->
             <section id="home-tab" class="tab-content active">
                 <div class="home-dashboard">
-                    <div class="home-greeting">
-                        <h2>Welcome back!</h2>
-                        <p>Manage your broadcasting directory seamlessly.</p>
+                    <!-- Premium Profile Header -->
+                    <div class="premium-profile-header animate-fade-in">
+                        <div class="profile-info">
+                            <div class="profile-avatar">MIP</div>
+                            <div class="profile-text">
+                                <h2>Welcome back!</h2>
+                                <p>System Administrator</p>
+                            </div>
+                        </div>
+                        <div class="system-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Cloud Sync Online</span>
+                        </div>
                     </div>
                     
                     <div class="home-stats-grid">
@@ -89,35 +99,64 @@
                                 <h2 id="home-stat-total">0</h2>
                             </div>
                         </div>
-                        <div class="stat-card stat-card-secondary animate-fade-in">
-                            <div class="stat-icon-wrapper"><i data-lucide="user-check"></i></div>
-                            <div class="stat-content">
-                                <h3>PEX Officers</h3>
-                                <h2 id="home-stat-pex">0</h2>
+                        <div class="stat-sub-grid">
+                            <div class="stat-card stat-card-secondary animate-fade-in">
+                                <div class="stat-icon-wrapper"><i data-lucide="user-check"></i></div>
+                                <div class="stat-content">
+                                    <h3>PEX Officers</h3>
+                                    <h2 id="home-stat-pex">0</h2>
+                                </div>
                             </div>
-                        </div>
-                        <div class="stat-card stat-card-tertiary animate-fade-in">
-                            <div class="stat-icon-wrapper"><i data-lucide="users"></i></div>
-                            <div class="stat-content">
-                                <h3>Team Members</h3>
-                                <h2 id="home-stat-team">0</h2>
+                            <div class="stat-card stat-card-tertiary animate-fade-in">
+                                <div class="stat-icon-wrapper"><i data-lucide="users"></i></div>
+                                <div class="stat-content">
+                                    <h3>Team Members</h3>
+                                    <h2 id="home-stat-team">0</h2>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <h3 class="home-section-title">Quick Actions</h3>
-                    <div class="home-actions-grid">
-                        <button class="home-action-btn home-action-btn-backup" onclick="switchTab('settings-tab')">
-                            <div class="action-icon" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: #ffffff">
-                                <i data-lucide="database"></i>
+                    <h3 class="home-section-title">Control Center</h3>
+                    <div class="home-actions-grid premium-actions-grid">
+                        <button class="home-action-btn home-action-search" onclick="switchTab('search-tab')">
+                            <div class="action-icon-box" style="background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);">
+                                <i data-lucide="search"></i>
                             </div>
-                            <span>Backup & Restore</span>
+                            <div class="action-btn-text">
+                                <h4>Search Directory</h4>
+                                <p>Find coordinators</p>
+                            </div>
                         </button>
-                        <button class="home-action-btn home-action-btn-pex" onclick="switchTab('pex-tab')">
-                            <div class="action-icon" style="background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); color: #ffffff">
+                        
+                        <button class="home-action-btn home-action-add" onclick="switchTab('entry-tab')">
+                            <div class="action-icon-box" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);">
+                                <i data-lucide="plus-circle"></i>
+                            </div>
+                            <div class="action-btn-text">
+                                <h4>Add Programme</h4>
+                                <p>Register new record</p>
+                            </div>
+                        </button>
+                        
+                        <button class="home-action-btn home-action-pex" onclick="switchTab('pex-tab')">
+                            <div class="action-icon-box" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
                                 <i data-lucide="user-check"></i>
                             </div>
-                            <span>PEX & Duties</span>
+                            <div class="action-btn-text">
+                                <h4>PEX & Duties</h4>
+                                <p>Manage guidelines</p>
+                            </div>
+                        </button>
+                        
+                        <button class="home-action-btn home-action-backup" onclick="switchTab('settings-tab')">
+                            <div class="action-icon-box" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);">
+                                <i data-lucide="database"></i>
+                            </div>
+                            <div class="action-btn-text">
+                                <h4>Backup Hub</h4>
+                                <p>Import & export data</p>
+                            </div>
                         </button>
                     </div>
                 </div>
