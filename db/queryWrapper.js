@@ -56,8 +56,8 @@ function translateForSQLite(sql) {
     // 8. Replace UNSIGNED (not supported in SQLite)
     translated = translated.replace(/\s+UNSIGNED/gi, '');
 
-    // 9. Replace MySQL NOW() with SQLite datetime('now')
-    translated = translated.replace(/\bNOW\(\)/gi, "datetime('now')");
+    // 9. Replace MySQL NOW() with SQLite CURRENT_TIMESTAMP
+    translated = translated.replace(/\bNOW\(\)/gi, "CURRENT_TIMESTAMP");
 
     // 9.5 Replace PostgreSQL SERIAL with INTEGER PRIMARY KEY AUTOINCREMENT
     translated = translated.replace(/\bSERIAL\s+PRIMARY\s+KEY\b/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT');
