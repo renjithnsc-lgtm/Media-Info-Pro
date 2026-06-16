@@ -63,10 +63,9 @@ function checkAuth() {
 }
 
 function logout() {
-    if (localStorage.getItem('token')) {
-        localStorage.removeItem('token');
-        showToast('Session expired or logged out', 'info');
-    }
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    showToast('Session expired or logged out', 'info');
     checkAuth();
 }
 
@@ -96,6 +95,8 @@ function initAuth() {
                 
                 if (res.ok && json.success) {
                     localStorage.setItem('token', json.token);
+                    localStorage.setItem('username', username);
+                    updateProfileGreeting();
                     if (errorMsg) errorMsg.classList.add('hidden');
                     if (loginOverlay) loginOverlay.classList.add('hidden');
                     
@@ -127,11 +128,24 @@ function initAuth() {
     }
 }
 
+function updateProfileGreeting() {
+    const username = localStorage.getItem('username') || 'Admin';
+    const userSpan = document.getElementById('logged-in-user');
+    if (userSpan) {
+        userSpan.textContent = username;
+    }
+    const avatarDiv = document.querySelector('.profile-avatar');
+    if (avatarDiv) {
+        avatarDiv.textContent = username.slice(0, 2).toUpperCase();
+    }
+}
+
 // ==========================================================================
 // Initialization
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     initAuth();
+    updateProfileGreeting();
     if (localStorage.getItem('token')) {
         loadDatabase();
     }
