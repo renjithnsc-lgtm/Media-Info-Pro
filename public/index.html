@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media-Info Pro 1.0 | Programme Management & Directory</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+    <!-- Background glowing decorative spheres -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo-box">M I P</div>
+                <h2>Media-Info <span>Pro 1.0</span></h2>
+                <p>System Authentication Required</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <label for="login-username">Username</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" id="login-username" placeholder="Enter username" required autocomplete="username">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" id="login-password" placeholder="Enter password" required autocomplete="current-password">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary login-btn">
+                    <i data-lucide="log-in"></i>
+                    <span>Log In</span>
+                </button>
+            </form>
+            <div id="login-error-msg" class="login-error hidden">
+                <i data-lucide="alert-circle"></i>
+                <span id="login-error-text">Invalid username or password</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-box">M I P</div>
+                <div class="brand-text">
+                    <h1>Media-Info <span>Pro 1.0</span></h1>
+                    <p>Programme Directory Hub</p>
+                    <span class="developer-tag">Developed by Team Duty Officer</span>
+                    <span class="developer-tag">Akashavani Thiruvananthapuram</span>
+                </div>
+            </div>
+            <nav class="app-nav">
+                <button class="nav-btn active" data-tab="search-tab">
+                    <i data-lucide="search"></i>
+                    <span>Search Programme</span>
+                </button>
+                <button class="nav-btn" data-tab="entry-tab">
+                    <i data-lucide="plus-circle"></i>
+                    <span>Data Entry</span>
+                </button>
+                <button class="nav-btn" data-tab="manage-tab">
+                    <i data-lucide="layout-list"></i>
+                    <span>Manage List</span>
+                </button>
+                <button class="nav-btn" data-tab="settings-tab">
+                    <i data-lucide="database"></i>
+                    <span>Backup & Restore</span>
+                </button>
+                <button class="nav-btn" data-tab="pex-tab">
+                    <i data-lucide="layers"></i>
+                    <span>PEX & Duties</span>
+                </button>
+                <button class="nav-btn logout-btn" id="logout-btn">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="app-main">
+            <!-- TAB 1: Search and Details -->
+            <section id="search-tab" class="tab-content active">
+                <div class="search-hero">
+                    <h2>Discover Programme Details</h2>
+                    <p>Enter the name of a programme below to view executive coordinators and production team members instantly.</p>
+                    
+                    <div class="search-box-wrapper">
+                        <div class="search-bar">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" id="search-input" placeholder="Search by programme name (e.g., Cartoon Time)..." autocomplete="off">
+                            <button type="button" id="clear-search-btn" class="clear-btn hidden">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        <!-- Autocomplete Suggestions List -->
+                        <div id="suggestions-box" class="suggestions-dropdown hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Detail View Card (Hidden initially, shown when a program is selected) -->
+                <div id="detail-card-container" class="detail-card-container hidden animate-fade-in">
+                    <!-- Dynamic details will be injected here -->
+                </div>
+
+                <!-- Blank state when no program is selected -->
+                <div id="search-blank-state" class="blank-state">
+                    <div class="blank-icon-wrapper">
+                        <i data-lucide="tv" class="blank-icon"></i>
+                    </div>
+                    <h3>No Programme Selected</h3>
+                    <p>Type a programme name above or select one from the suggestions dropdown to view details.</p>
+                    <div class="popular-suggestions">
+                        <span>Try:</span>
+                        <div id="quick-suggestions-list" class="tag-list">
+                            <!-- Quick tags will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Data Entry Form -->
+            <section id="entry-tab" class="tab-content">
+                <div class="section-header">
+                    <div>
+                        <h2>Programme Data Entry</h2>
+                        <p>Register a new programme or update an existing one in the directory.</p>
+                    </div>
+                    <button type="button" id="cancel-edit-btn" class="btn btn-secondary hidden">
+                        <i data-lucide="arrow-left"></i>
+                        <span>Cancel Editing</span>
+                    </button>
+                </div>
+
+                <form id="programme-form" class="data-entry-form card">
+                    <input type="hidden" id="edit-mode-id">
+                    
+                    <!-- General Programme Details -->
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i data-lucide="info"></i> General Information</h3>
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label for="form-programme-name">Programme Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="film" class="input-icon"></i>
+                                    <input type="text" id="form-programme-name" placeholder="e.g., Cartoon Time" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PEX & Duties -->
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i data-lucide="file-text"></i> PEX & Duties</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="form-pex">PEX</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="form-pex" placeholder="e.g., John Doe" autocomplete="off">
+                                    <div id="pex-suggestions-box" class="suggestions-dropdown hidden"></div>
+                                </div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="form-duties">Duties and Responsibilities</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="list" class="input-icon"></i>
+                                    <textarea id="form-duties" placeholder="Enter duties and responsibilities..." rows="8" style="width:100%;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Programme Executive Details -->
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i data-lucide="user-check"></i> Programme Executive</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="form-exec-name">Executive Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="form-exec-name" placeholder="e.g., Alex Carter" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="form-exec-phone">Phone Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input type="tel" id="form-exec-phone" placeholder="e.g., +1 (555) 019-2834" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Production Team Details -->
+                    <div class="form-section">
+                        <div class="section-title-bar">
+                            <h3 class="form-section-title"><i data-lucide="users"></i> Production Team</h3>
+                            <button type="button" id="add-member-btn" class="btn btn-sm btn-outline">
+                                <i data-lucide="plus"></i>
+                                <span>Add Member</span>
+                            </button>
+                        </div>
+                        <p class="section-subtitle">Add the members responsible for the production of this programme (recommended: 3-4 members).</p>
+                        
+                        <div id="team-members-container" class="team-members-list">
+                            <!-- Dynamic team member input rows will be injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary" id="reset-form-btn">
+                            <i data-lucide="rotate-ccw"></i>
+                            <span>Clear Form</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i data-lucide="save"></i>
+                            <span id="submit-btn-text">Save Programme</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- TAB 5: PEX & Duties Form -->
+            <section id="pex-tab" class="tab-content">
+                <div class="section-header">
+                    <div>
+                        <h2>PEX & Duties Entry</h2>
+                        <p>Enter executive details and duties for PEX.</p>
+                    </div>
+                </div>
+                <form id="pex-form" class="data-entry-form card">
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i data-lucide="user-check"></i> Programme Executive</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="pex-exec-name">Executive Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="pex-exec-name" placeholder="e.g., Alex Carter" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="pex-exec-phone">Phone Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input type="tel" id="pex-exec-phone" placeholder="e.g., +1 (555) 019-2834" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="input-group full-width">
+                            <label for="pex-duties">Duties and Responsibilities</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="list" class="input-icon"></i>
+                                <textarea id="pex-duties" placeholder="Enter duties and responsibilities..." rows="8" style="width:100%;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary" id="reset-pex-form-btn">
+                            <i data-lucide="rotate-ccw"></i>
+                            <span>Clear Form</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i data-lucide="save"></i>
+                            <span id="pex-submit-btn-text">Save PEX & Duties</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- TAB 3: Manage Program List -->
+            <section id="manage-tab" class="tab-content">
+                <div class="section-header">
+                    <div>
+                        <h2>Manage Directory</h2>
+                        <p>View, edit, or remove registered programs from the local database.</p>
+                    </div>
+                    <div class="search-list-wrapper">
+                        <div class="input-wrapper table-search-input">
+                            <i data-lucide="search" class="input-icon"></i>
+                            <input type="text" id="table-search" placeholder="Filter programmes...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container card">
+                    <table class="program-table">
+                        <thead>
+                            <tr>
+                                <th>Programme Name</th>
+                                <th>Executive Name</th>
+                                <th>Exec. Phone</th>
+                                <th>Team Count</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="program-table-body">
+                            <!-- Program rows will be dynamically injected here -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="table-blank-state" class="table-blank-state hidden">
+                        <i data-lucide="inbox" class="large-icon"></i>
+                        <p>No programmes match your filter, or the database is currently empty.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Backup & Restore / Database Settings -->
+            <section id="settings-tab" class="tab-content">
+                <div class="section-header">
+                    <div>
+                        <h2>Backup & Restore Hub</h2>
+                        <p>Manage your local database file storage, import records, or download a secure backup file.</p>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Backup Card -->
+                    <div class="card settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-icon-wrapper export-icon">
+                                <i data-lucide="download-cloud"></i>
+                            </div>
+                            <div>
+                                <h3>Export Database</h3>
+                                <p>Download your complete database of programmes as a single `.json` file for backup or sharing.</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <p class="settings-desc">This download contains all programme details, executive names, phone numbers, and team listings. You can import this file on any device running Media-Info Pro 1.0.</p>
+                            <button id="export-db-btn" class="btn btn-primary full-width">
+                                <i data-lucide="download"></i>
+                                <span>Download JSON Backup</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Restore Card -->
+                    <div class="card settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-icon-wrapper import-icon">
+                                <i data-lucide="upload-cloud"></i>
+                            </div>
+                            <div>
+                                <h3>Import Database</h3>
+                                <p>Load records from a previously exported `.json` backup file.</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <p class="settings-desc"><strong class="warning-text">Caution:</strong> Importing a file can overwrite or merge with current records. Please make sure the JSON format matches a valid Media-Info Pro 1.0 backup.</p>
+                            
+                            <label for="import-db-input" class="btn btn-outline full-width file-upload-label">
+                                <i data-lucide="file-up"></i>
+                                <span id="file-upload-label-text">Select Backup File</span>
+                                <input type="file" id="import-db-input" accept=".json" class="hidden-file-input">
+                            </label>
+                            
+                            <div id="import-status-msg" class="import-status hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Reset database card -->
+                    <div class="card settings-card danger-card">
+                        <div class="settings-card-header">
+                            <div class="settings-icon-wrapper reset-icon">
+                                <i data-lucide="alert-triangle"></i>
+                            </div>
+                            <div>
+                                <h3>Factory Reset Database</h3>
+                                <p>Clear all custom programmes and reset the app back to initial mock values.</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <p class="settings-desc">This will erase all details permanently. Make sure you export a backup first if you have important custom programme data.</p>
+                            <button id="reset-db-btn" class="btn btn-danger full-width">
+                                <i data-lucide="trash-2"></i>
+                                <span>Reset Database to Default</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Toast Notification system -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2026 Media-Info Pro 1.0. Crafted for seamless operations.</p>
+            <p class="db-indicator"><i data-lucide="circle-dot"></i> <span id="db-indicator-text">0 programmes loaded</span></p>
+        </footer>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script src="app.js?v=2"></script>
+</body>
+</html>

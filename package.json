@@ -1,0 +1,27 @@
+{
+  "name": "mediainfo-pro",
+  "version": "1.0.0",
+  "description": "Media-Info Pro 1.0 — Programme Directory Hub with hybrid MySQL/SQLite backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "media",
+    "programme",
+    "directory"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.22.5",
+    "pg": "^8.11.3",
+    "sqlite3": "^5.1.7"
+  }
+}
