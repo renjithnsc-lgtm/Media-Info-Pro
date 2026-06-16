@@ -21,35 +21,63 @@
 
     <!-- Login Overlay -->
     <div id="login-overlay" class="login-overlay">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-logo-box">M I P</div>
-                <h2>Media-Info <span>Pro 1.0</span></h2>
-                <p>System Authentication Required</p>
+        <div class="login-card-container">
+            <div class="login-card">
+                <!-- Sunburst symbol decoration -->
+                <div class="login-card-sunburst">
+                    <i data-lucide="sun"></i>
+                </div>
+                
+                <div class="login-header">
+                    <div class="login-shield-box">
+                        <i data-lucide="shield"></i>
+                    </div>
+                    <h2>AIRONE Portal</h2>
+                    <p>Unified Identity Interface</p>
+                </div>
+                
+                <!-- System Warning Banner -->
+                <div class="login-system-alert">
+                    <i data-lucide="alert-octagon"></i>
+                    <span>System Risk active. Verify network terminal.</span>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="login-input-group">
+                        <label for="login-username">Operator Vector ID</label>
+                        <div class="login-input-wrapper">
+                            <input type="text" id="login-username" placeholder="admin" required autocomplete="username">
+                            <i data-lucide="user" class="login-input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-input-group">
+                        <label for="login-password">Secure Access Key</label>
+                        <div class="login-input-wrapper">
+                            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                            <i data-lucide="lock" class="login-input-icon"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <span>Establish Connection</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </form>
+                
+                <!-- Error messages -->
+                <div id="login-error-msg" class="login-error hidden">
+                    <i data-lucide="alert-circle"></i>
+                    <span id="login-error-text">Invalid username or password</span>
+                </div>
+                
+                <!-- Card Footer Indicators -->
+                <div class="login-card-indicator">
+                    <span>1. INITIALISE SUITE</span>
+                    <span class="indicator-dots">...</span>
+                </div>
             </div>
-            <form id="login-form" class="login-form">
-                <div class="input-group">
-                    <label for="login-username">Username</label>
-                    <div class="input-wrapper">
-                        <i data-lucide="user" class="input-icon"></i>
-                        <input type="text" id="login-username" placeholder="Enter username" required autocomplete="username">
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="login-password">Password</label>
-                    <div class="input-wrapper">
-                        <i data-lucide="lock" class="input-icon"></i>
-                        <input type="password" id="login-password" placeholder="Enter password" required autocomplete="current-password">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary login-btn">
-                    <i data-lucide="log-in"></i>
-                    <span>Log In</span>
-                </button>
-            </form>
-            <div id="login-error-msg" class="login-error hidden">
-                <i data-lucide="alert-circle"></i>
-                <span id="login-error-text">Invalid username or password</span>
+            
+            <div class="login-global-footer">
+                GLOBAL SYSTEMS INTEGRITY UNIT
             </div>
         </div>
     </div>
