@@ -182,6 +182,18 @@ function updateIndicators() {
     if (homeTotal) {
         homeTotal.textContent = count;
     }
+    
+    // Premium Dashboard metrics
+    const homePex = document.getElementById("home-stat-pex");
+    if (homePex) {
+        const uniquePex = new Set(programmes.map(p => p.pex).filter(Boolean)).size;
+        homePex.textContent = uniquePex;
+    }
+    const homeTeam = document.getElementById("home-stat-team");
+    if (homeTeam) {
+        const totalTeam = programmes.reduce((sum, p) => sum + (p.team ? p.team.length : 0), 0);
+        homeTeam.textContent = totalTeam;
+    }
 }
 
 // ==========================================================================

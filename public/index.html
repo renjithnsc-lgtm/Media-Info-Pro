@@ -82,25 +82,39 @@
                     </div>
                     
                     <div class="home-stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon-wrapper" style="color: var(--primary)"><i data-lucide="layers"></i></div>
+                        <div class="stat-card stat-card-primary animate-fade-in">
+                            <div class="stat-icon-wrapper"><i data-lucide="layers"></i></div>
                             <div class="stat-content">
                                 <h3>Total Programmes</h3>
                                 <h2 id="home-stat-total">0</h2>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-card-secondary animate-fade-in">
+                            <div class="stat-icon-wrapper"><i data-lucide="user-check"></i></div>
+                            <div class="stat-content">
+                                <h3>PEX Officers</h3>
+                                <h2 id="home-stat-pex">0</h2>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-card-tertiary animate-fade-in">
+                            <div class="stat-icon-wrapper"><i data-lucide="users"></i></div>
+                            <div class="stat-content">
+                                <h3>Team Members</h3>
+                                <h2 id="home-stat-team">0</h2>
                             </div>
                         </div>
                     </div>
 
                     <h3 class="home-section-title">Quick Actions</h3>
                     <div class="home-actions-grid">
-                        <button class="home-action-btn" onclick="switchTab('settings-tab')">
-                            <div class="action-icon" style="background: rgba(168, 85, 247, 0.15); color: var(--secondary)">
+                        <button class="home-action-btn home-action-btn-backup" onclick="switchTab('settings-tab')">
+                            <div class="action-icon" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: #ffffff">
                                 <i data-lucide="database"></i>
                             </div>
                             <span>Backup & Restore</span>
                         </button>
-                        <button class="home-action-btn" onclick="switchTab('pex-tab')">
-                            <div class="action-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--primary)">
+                        <button class="home-action-btn home-action-btn-pex" onclick="switchTab('pex-tab')">
+                            <div class="action-icon" style="background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); color: #ffffff">
                                 <i data-lucide="user-check"></i>
                             </div>
                             <span>PEX & Duties</span>
