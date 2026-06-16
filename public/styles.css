@@ -1646,14 +1646,15 @@ a:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(17, 24, 39, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border-color);
+    background: rgba(17, 24, 39, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     justify-content: space-around;
-    padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+    padding: 0.6rem 0.4rem calc(0.6rem + env(safe-area-inset-bottom));
     z-index: 1000;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .bottom-nav .nav-btn {
@@ -1661,31 +1662,80 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.5rem;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
     color: var(--text-muted);
     background: transparent;
     border: none;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.72rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: var(--radius-sm);
-    transition: var(--transition-fast);
+    transition: all 0.3s;
+}
+
+.nav-icon-wrapper {
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.03);
+}
+
+.bottom-nav .nav-btn:hover .nav-icon-wrapper,
+.bottom-nav .nav-btn:active .nav-icon-wrapper {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
 }
 
 .bottom-nav .nav-btn.active {
-    color: var(--primary);
-    background: transparent;
-    box-shadow: none;
+    color: #ffffff;
+}
+
+.bottom-nav .nav-btn.active .nav-icon-wrapper {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Tab-specific Gradient Backgrounds when Active */
+.bottom-nav .nav-btn.active[data-tab="home-tab"] .nav-icon-wrapper {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.bottom-nav .nav-btn.active[data-tab="search-tab"] .nav-icon-wrapper {
+    background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+}
+
+.bottom-nav .nav-btn.active[data-tab="entry-tab"] .nav-icon-wrapper {
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.bottom-nav .nav-btn.active[data-tab="manage-tab"] .nav-icon-wrapper {
+    background: linear-gradient(135deg, #f59e0b 0%, #e11d48 100%);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.bottom-nav .nav-btn i {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s;
 }
 
 .bottom-nav .nav-btn.active i {
-    color: var(--primary);
     transform: scale(1.1);
 }
 
 .app-container {
-    padding-bottom: 5rem; /* space for bottom nav */
+    padding-bottom: 5.6rem; /* space for bottom nav */
 }
 
 .header-actions .icon-btn {
