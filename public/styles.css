@@ -2,34 +2,34 @@
    Design System & Premium Theme Variables
    ========================================================================== */
 :root {
-    /* Color Palette */
-    --bg-base: #080c14;
-    --bg-surface: rgba(17, 24, 39, 0.7);
-    --bg-surface-hover: rgba(31, 41, 55, 0.85);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-focus: rgba(99, 102, 241, 0.6);
+    /* Color Palette - Bright Blue Theme */
+    --bg-base: #f0f6ff;
+    --bg-surface: rgba(255, 255, 255, 0.82);
+    --bg-surface-hover: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(28, 100, 242, 0.14);
+    --border-focus: rgba(28, 100, 242, 0.6);
     
-    --primary: #6366f1; /* Indigo */
-    --primary-glow: rgba(99, 102, 241, 0.15);
-    --secondary: #a855f7; /* Purple */
-    --accent: #f43f5e; /* Rose */
+    --primary: #1c64f2; /* Royal Blue */
+    --primary-glow: rgba(28, 100, 242, 0.15);
+    --secondary: #0ea5e9; /* Sky Blue */
+    --accent: #2563eb; /* Cobalt Blue */
     
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
+    --text-primary: #1e293b; /* Slate 800 */
+    --text-secondary: #475569; /* Slate 600 */
+    --text-muted: #64748b; /* Slate 500 */
     
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    --success: #0e9f6e; /* Bright green */
+    --warning: #d03801; /* Dark orange/amber for contrast */
+    --danger: #e02424; /* Bright red */
     
     /* Layout Tokens */
     --radius-sm: 8px;
     --radius-md: 16px;
     --radius-lg: 24px;
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 16px 24px rgba(28, 100, 242, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(28, 100, 242, 0.08);
     
     /* Transitions */
     --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -62,7 +62,7 @@ body {
     border-radius: 50%;
     filter: blur(90px);
     z-index: -1;
-    opacity: 0.35;
+    opacity: 0.12;
     pointer-events: none;
     animation: drift 20s infinite alternate ease-in-out;
 }
@@ -70,7 +70,7 @@ body {
 .blob-1 {
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, var(--primary) 0%, rgba(99, 102, 241, 0) 70%);
+    background: radial-gradient(circle, var(--primary) 0%, rgba(28, 100, 242, 0) 70%);
     top: -10%;
     left: -10%;
 }
@@ -78,7 +78,7 @@ body {
 .blob-2 {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, var(--secondary) 0%, rgba(168, 85, 247, 0) 70%);
+    background: radial-gradient(circle, var(--secondary) 0%, rgba(14, 165, 233, 0) 70%);
     bottom: -15%;
     right: -10%;
     animation-delay: -5s;
@@ -88,7 +88,7 @@ body {
 .blob-3 {
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, var(--accent) 0%, rgba(244, 63, 94, 0) 70%);
+    background: radial-gradient(circle, var(--accent) 0%, rgba(37, 99, 235, 0) 70%);
     top: 40%;
     left: 45%;
     animation-delay: -10s;
@@ -440,11 +440,11 @@ a:hover {
 .search-bar {
     display: flex;
     align-items: center;
-    background: rgba(17, 24, 39, 0.85);
-    border: 2px solid #ffffff !important;
+    background: #ffffff;
+    border: 2px solid var(--primary) !important;
     border-radius: var(--radius-md);
     padding: 0 1.5rem;
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(28, 100, 242, 0.1);
     transition: var(--transition-normal);
 }
 
@@ -466,7 +466,7 @@ a:hover {
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 1.15rem;
     padding: 1.1rem 0;
@@ -991,11 +991,11 @@ a:hover {
 
 .input-wrapper input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.02);
+    background: #ffffff;
     border: 1px solid var(--border-color);
     padding: 0.75rem 1rem 0.75rem 2.5rem;
     border-radius: var(--radius-sm);
-    color: white;
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 0.95rem;
     transition: var(--transition-normal);
@@ -1014,14 +1014,13 @@ a:hover {
 
 .input-wrapper textarea {
     width: 100%;
-    background: #eef2ff; /* Light lavender-blue background for high contrast */
+    background: #ffffff;
     border: 1px solid var(--border-color);
     padding: 0.75rem 1rem 0.75rem 2.5rem;
     border-radius: var(--radius-sm);
-    color: #1e3a8a; /* Navy blue text color */
+    color: var(--text-primary);
     font-family: inherit;
-    font-size: 0.95rem; /* Half the font size (from 1.9rem) */
-    font-weight: 175;
+    font-size: 0.95rem;
     transition: var(--transition-normal);
     resize: vertical;
 }
@@ -1155,7 +1154,7 @@ a:hover {
 }
 
 .program-table td .tbl-prog-name {
-    color: white;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -1501,13 +1500,13 @@ a:hover {
 }
 
 .login-card {
-    background: rgba(17, 24, 39, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 3rem 2.5rem;
     width: 100%;
     max-width: 420px;
-    box-shadow: var(--glass-shadow), 0 0 40px rgba(99, 102, 241, 0.15);
+    box-shadow: var(--glass-shadow), 0 10px 30px rgba(28, 100, 242, 0.1);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -1647,10 +1646,10 @@ a:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(17, 24, 39, 0.82);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: space-around;
     padding: 0.6rem 0.4rem calc(0.6rem + env(safe-area-inset-bottom));
