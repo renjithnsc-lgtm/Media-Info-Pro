@@ -38,6 +38,38 @@ app.use('/uploads', express.static(uploadsDir));
 
 const jwt = require('jsonwebtoken');
 
+// ---- Database Initialization (Serverless Support) ----
+let isDbInitialized = false;
+let dbInitPromise = null;
+
+async function ensureDbInitialized() {
+    if (!isDbInitialized) {
+        if (!dbInitPromise) {
+            dbInitPromise = (async () => {
+                console.log('[Server] Initializing database connections...');
+                const engine = await dbConnection.initialize();
+                await initializeSchema();
+                console.log(`[Server] Active database engine: ${engine.toUpperCase()}`);
+                isDbInitialized = true;
+            })();
+        }
+        await dbInitPromise;
+    }
+}
+
+app.use(async (req, res, next) => {
+    // Ensure DB is initialized before any /api/ requests
+    if (req.path.startsWith('/api/')) {
+        try {
+            await ensureDbInitialized();
+        } catch (err) {
+            console.error('[Server] Database initialization failed:', err);
+            return res.status(500).json({ success: false, message: 'Database initialization failed' });
+        }
+    }
+    next();
+});
+
 // ---- Serve Frontend (public directory) ----
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -95,35 +127,24 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'app.html'));
 });
 
-// ---- Bootstrap ----
-async function startServer() {
-    try {
-        console.log('');
-        console.log('╔══════════════════════════════════════════════════╗');
-        console.log('║     Media-Info Pro 1.0 — Starting Server...      ║');
-        console.log('╚══════════════════════════════════════════════════╝');
-        console.log('');
-
-        // Initialize hybrid database connection
-        const engine = await dbConnection.initialize();
-        console.log(`[Server] Active database engine: ${engine.toUpperCase()}`);
-
-        // Create tables and seed mock data
-        await initializeSchema();
-
-        // Start listening
+// ---- Bootstrap & Serverless Export ----
+if (process.env.VERCEL !== '1' && !process.env.NOW_REGION) {
+    // Running locally or on a traditional server
+    ensureDbInitialized().then(() => {
         app.listen(PORT, () => {
             console.log('');
-            console.log(`[Server] ✅ Media-Info Pro 1.0 is running at:`);
-            console.log(`         🌐 http://localhost:${PORT}`);
-            console.log(`         📂 Uploads directory: ${uploadsDir}`);
-            console.log(`         💾 Database engine: ${engine.toUpperCase()}`);
+            console.log('╔══════════════════════════════════════════════════╗');
+            console.log('║     Media-Info Pro 1.0 — Server Running...       ║');
+            console.log('╚══════════════════════════════════════════════════╝');
+            console.log(`[Server] ✅ Listening at: http://localhost:${PORT}`);
+            console.log(`[Server] 📂 Uploads directory: ${uploadsDir}`);
             console.log('');
         });
-    } catch (err) {
+    }).catch(err => {
         console.error('[Server] ❌ Fatal startup error:', err);
         process.exit(1);
-    }
+    });
 }
 
-startServer();
+// Export the Express app so Vercel can use it as a Serverless Function
+module.exports = app;

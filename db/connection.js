@@ -58,7 +58,9 @@ function createMySQLPool() {
 
 // ---- SQLite Initialization (Promise-wrapped) ----
 function createSQLiteClient() {
-    const dbPath = process.env.SQLITE_PATH || path.join(__dirname, '..', 'airone.db');
+    const isVercel = process.env.VERCEL === '1' || process.env.NOW_REGION;
+    const defaultPath = isVercel ? '/tmp/airone.db' : path.join(__dirname, '..', 'airone.db');
+    const dbPath = process.env.SQLITE_PATH || defaultPath;
     
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath, (err) => {
