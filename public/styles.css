@@ -2,34 +2,34 @@
    Design System & Premium Theme Variables
    ========================================================================== */
 :root {
-    /* Color Palette - Dark Premium Theme */
-    --bg-base: #110e26;
-    --bg-surface: rgba(255, 255, 255, 0.07);
-    --bg-surface-hover: rgba(255, 255, 255, 0.12);
-    --border-color: rgba(255, 255, 255, 0.12);
-    --border-focus: rgba(99, 102, 241, 0.5);
+    /* Color Palette - Option D: Solid Royal Blue Background & Sky Blue Cards */
+    --bg-base: #2563eb; /* Solid Royal Blue background */
+    --bg-surface: #e0f2fe; /* Sky-blue card background */
+    --bg-surface-hover: #bae6fd;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --border-focus: rgba(255, 255, 255, 0.4);
     
-    --primary: #6366f1; /* Vibrant Purple/Indigo */
-    --primary-glow: rgba(99, 102, 241, 0.2);
-    --secondary: #3b82f6; /* Neon Blue */
-    --accent: #a5b4fc; /* Lavender Accent */
+    --primary: #3b82f6; /* Blue */
+    --primary-glow: rgba(59, 130, 246, 0.15);
+    --secondary: #1d4ed8; /* Darker Blue */
+    --accent: #60a5fa; /* Light Blue */
     
-    --text-primary: #ffffff; /* High contrast white text */
-    --text-secondary: rgba(255, 255, 255, 0.7); /* Medium opacity text */
-    --text-muted: rgba(255, 255, 255, 0.45); /* Low opacity text */
+    --text-primary: #ffffff; /* White text for royal blue background */
+    --text-secondary: #e2e8f0; /* Light slate for secondary text */
+    --text-muted: #93c5fd; /* Soft blue for muted text */
     
-    --success: #10b981; /* Bright Emerald Green */
-    --warning: #f59e0b; /* Bright Amber Orange */
-    --danger: #ef4444; /* Bright Crimson Red */
+    --success: #3b82f6;
+    --warning: #60a5fa;
+    --danger: #ef4444;
     
-    /* Layout Tokens */
+    /* Layout Tokens & Neumorphic Shadows (Light on top-left, dark on bottom-right) */
     --radius-sm: 10px;
     --radius-md: 20px;
     --radius-lg: 28px;
-    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-    --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 3px 3px 6px #1d4ed8, -3px -3px 6px #3b82f6;
+    --shadow-md: 6px 6px 16px #1d4ed8, -6px -6px 16px #3b82f6;
+    --shadow-lg: 10px 10px 25px #1d4ed8, -10px -10px 25px #3b82f6;
+    --glass-shadow: 6px 6px 16px #1d4ed8, -6px -6px 16px #3b82f6;
     
     /* Transitions */
     --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,7 +48,7 @@
 
 body {
     font-family: 'Outfit', sans-serif;
-    background: radial-gradient(circle at center, #2e1d66 0%, #130f2b 60%, #070512 100%) no-repeat fixed;
+    background: var(--bg-base);
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
@@ -56,60 +56,18 @@ body {
     line-height: 1.5;
 }
 
-/* Background Glowing Blobs */
+/* Background Glowing Blobs - Disabled for Neumorphic minimalist style */
 .blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: -1;
-    opacity: 0.18;
-    pointer-events: none;
-    animation: drift 20s infinite alternate ease-in-out;
+    display: none;
 }
 
-.blob-1 {
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, var(--primary) 0%, rgba(99, 102, 241, 0) 70%);
-    top: -10%;
-    left: -10%;
-}
-
-.blob-2 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, var(--secondary) 0%, rgba(59, 130, 246, 0) 70%);
-    bottom: -15%;
-    right: -10%;
-    animation-delay: -5s;
-    animation-duration: 25s;
-}
-
-.blob-3 {
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, #8b5cf6 0%, rgba(139, 92, 246, 0) 70%);
-    top: 40%;
-    left: 45%;
-    animation-delay: -10s;
-    animation-duration: 18s;
-}
-
-@keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(60px, -40px) scale(1.1); }
-    100% { transform: translate(-30px, 50px) scale(0.95); }
-}
-
-/* Glassmorphism base rules */
+/* Base Card styles - Neumorphic Extrusion */
 .card {
     background: var(--bg-surface);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 1.8rem;
-    box-shadow: var(--glass-shadow);
+    box-shadow: var(--shadow-md);
 }
 
 /* Scrollbars */
@@ -118,14 +76,14 @@ body {
     height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+    background: rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
@@ -204,7 +162,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(29,78,216,0) 0%, rgba(29,78,216,0.3) 50%, rgba(29,78,216,0) 100%);
+    background: linear-gradient(0deg, rgba(57, 255, 20, 0) 0%, rgba(57, 255, 20, 0.55) 50%, rgba(57, 255, 20, 0) 100%);
     animation: scan 3s linear infinite;
 }
 
@@ -227,9 +185,10 @@ a:hover {
 
 
 .brand-text h1 span {
-    background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
 }
 
 .brand-text p {
@@ -240,7 +199,7 @@ a:hover {
 }
 
 .brand-text .developer-tag {
-    font-size: 0.65rem;
+    font-size: 1.3rem; /* Doubled from 0.65rem */
     color: var(--text-muted);
     display: block;
     margin-top: 0.15rem;
@@ -251,12 +210,11 @@ a:hover {
 .app-nav {
     display: flex;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--bg-base);
     padding: 0.35rem;
     border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    outline: 1.5px solid #d6bdfd;
-    outline-offset: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 3px 3px 6px #b5beeb, inset -3px -3px 6px #ffffff;
 }
 
 .nav-btn {
@@ -282,13 +240,13 @@ a:hover {
 
 .nav-btn:hover {
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .nav-btn.active {
     color: var(--text-primary);
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(99, 102, 241, 0.7) 100%);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+    background: var(--bg-surface);
+    box-shadow: inset 2px 2px 5px #b5beeb, inset -2px -2px 5px #ffffff;
 }
 
 /* Main Content Views */
@@ -337,9 +295,10 @@ a:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: var(--primary);
     color: white;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 4px 4px 10px rgba(15, 23, 42, 0.12), -4px -4px 10px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary::after {
@@ -352,14 +311,15 @@ a:hover {
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 5px 5px 12px rgba(15, 23, 42, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.8);
 }
 .btn-primary:hover::after {
     opacity: 1;
 }
 .btn-primary:active {
     transform: translateY(0);
+    box-shadow: inset 3px 3px 6px rgba(15, 23, 42, 0.15), inset -3px -3px 6px rgba(255, 255, 255, 0.5);
 }
 
 .btn-secondary {
@@ -388,13 +348,13 @@ a:hover {
 .btn-danger {
     background: var(--danger);
     color: white;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 4px 15px rgba(29, 78, 216, 0.25);
 }
 
 .btn-danger:hover {
-    background: #dc2626;
+    background: #1e3a8a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
 }
 
 .btn-sm {
@@ -448,12 +408,12 @@ a:hover {
 
 .search-bar:focus-within {
     border-color: var(--primary);
-    box-shadow: var(--shadow-lg), 0 0 25px rgba(99, 102, 241, 0.2);
+    box-shadow: var(--shadow-lg), 0 0 25px rgba(66, 133, 244, 0.2);
     transform: translateY(-2px);
 }
 
 .search-icon {
-    color: var(--text-muted);
+    color: #3b82f6 !important; /* Solid blue search icon */
     width: 1.4rem;
     height: 1.4rem;
     margin-right: 1rem;
@@ -464,14 +424,15 @@ a:hover {
     background: transparent;
     border: none;
     outline: none;
-    color: var(--text-primary);
+    color: #1e3a8a !important; /* Navy Blue text color for typing */
     font-family: inherit;
     font-size: 1.15rem;
     padding: 1.1rem 0;
 }
 
 .search-bar input::placeholder {
-    color: var(--text-muted);
+    color: #4b5563 !important; /* Dark slate-grey placeholder text */
+    opacity: 0.8 !important; /* Sharp contrast visibility */
 }
 
 .clear-btn {
@@ -637,7 +598,6 @@ a:hover {
 
 .detail-card {
     background: var(--bg-surface);
-    backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -645,7 +605,7 @@ a:hover {
 }
 
 .detail-header-block {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(96, 165, 250, 0.04) 100%);
     padding: 2.2rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -719,7 +679,7 @@ a:hover {
     font-weight: 800;
     color: white;
     margin-bottom: 1rem;
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+    box-shadow: 0 8px 20px rgba(66, 133, 244, 0.25);
     border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -989,57 +949,61 @@ a:hover {
 
 .input-wrapper input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--bg-base);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     padding: 0.8rem 1.2rem 0.8rem 2.8rem;
     border-radius: 100px;
-    color: #ffffff;
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 0.95rem;
     transition: var(--transition-normal);
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff;
 }
 
 .input-wrapper input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-secondary);
+    opacity: 0.6;
 }
 
 .input-wrapper input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--primary);
+    background: var(--bg-base);
+    border-color: rgba(59, 130, 246, 0.45);
     outline: none;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff, 0 0 10px rgba(59, 130, 246, 0.15);
 }
 
 .input-wrapper input:focus + .input-icon {
-    color: #818cf8;
+    color: var(--primary);
 }
 
 .input-wrapper textarea {
     width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--bg-base);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     padding: 0.8rem 1.2rem 0.8rem 2.8rem;
     border-radius: var(--radius-md);
-    color: #ffffff;
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 0.95rem;
     transition: var(--transition-normal);
     resize: vertical;
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff;
 }
 
 .input-wrapper textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-secondary);
+    opacity: 0.6;
 }
 
 .input-wrapper textarea:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--primary);
+    background: var(--bg-base);
+    border-color: rgba(59, 130, 246, 0.45);
     outline: none;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff, 0 0 10px rgba(59, 130, 246, 0.15);
 }
 
 .input-wrapper textarea:focus + .input-icon {
-    color: #818cf8;
+    color: var(--primary);
 }
 
 /* Team Dynamic Form Listing */
@@ -1068,8 +1032,8 @@ a:hover {
 }
 
 .btn-remove-member {
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: rgba(29, 78, 216, 0.08);
+    border: 1px solid rgba(29, 78, 216, 0.2);
     color: var(--danger);
     width: 2.6rem;
     height: 2.6rem;
@@ -1205,7 +1169,7 @@ a:hover {
 }
 
 .action-btn-delete:hover {
-    background: rgba(239, 68, 68, 0.15);
+    background: rgba(29, 78, 216, 0.15);
     border-color: var(--danger);
     color: var(--danger);
 }
@@ -1278,13 +1242,13 @@ a:hover {
 }
 
 .import-icon {
-    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .reset-icon {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
 .settings-card h3 {
@@ -1342,14 +1306,14 @@ a:hover {
 }
 
 .import-status.success {
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.2);
     color: var(--success);
 }
 
 .import-status.error {
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: rgba(29, 78, 216, 0.08);
+    border: 1px solid rgba(29, 78, 216, 0.2);
     color: var(--danger);
 }
 
@@ -1485,9 +1449,7 @@ a:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle at center, #2e1d66 0%, #130f2b 60%, #070512 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: var(--bg-base);
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -1512,12 +1474,12 @@ a:hover {
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
     border-radius: 28px;
     padding: 3.5rem 2.8rem 2.8rem 2.8rem;
     width: 100%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
@@ -1541,13 +1503,13 @@ a:hover {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(30, 58, 138, 0.08);
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .login-card-sunburst:hover {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(30, 58, 138, 0.2);
 }
 
 .login-card-sunburst i {
@@ -1566,14 +1528,14 @@ a:hover {
 .login-shield-box {
     width: 4rem;
     height: 4rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
     margin-bottom: 0.75rem;
 }
 
@@ -1584,7 +1546,7 @@ a:hover {
 
 .login-header h2 {
     font-size: 1.85rem;
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -1592,22 +1554,24 @@ a:hover {
 
 .login-header p {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: #ffffff !important; /* White text override */
     font-weight: 500;
+    opacity: 0.85;
 }
 
 .login-system-alert {
-    background: rgba(244, 63, 94, 0.15);
-    border: 1px solid rgba(244, 63, 94, 0.25);
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 0.8rem 1rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #fda4af;
+    color: var(--text-primary);
     font-size: 0.82rem;
     font-weight: 500;
     line-height: 1.3;
+    box-shadow: inset 2px 2px 5px #b5beeb, inset -2px -2px 5px #ffffff;
 }
 
 .login-system-alert i {
@@ -1633,7 +1597,7 @@ a:hover {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-secondary);
 }
 
 .login-input-wrapper {
@@ -1644,31 +1608,34 @@ a:hover {
 
 .login-input-wrapper input {
     width: 100%;
-    background: #ffffff;
-    border: 1px solid transparent;
+    background: var(--bg-base);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     padding: 0.9rem 1.5rem 0.9rem 3.2rem;
     border-radius: 100px;
-    color: #0f172a;
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 0.95rem;
     font-weight: 500;
     transition: var(--transition-normal);
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff;
 }
 
 .login-input-wrapper input::placeholder {
-    color: #94a3b8;
+    color: var(--text-secondary);
+    opacity: 0.65;
 }
 
 .login-input-wrapper input:focus {
-    background: #ffffff;
+    background: var(--bg-base);
     outline: none;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    box-shadow: inset 4px 4px 8px #b5beeb, inset -4px -4px 8px #ffffff, 0 0 15px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.45);
 }
 
 .login-input-icon {
     position: absolute;
     left: 1.3rem;
-    color: #6366f1;
+    color: var(--primary);
     width: 1.1rem;
     height: 1.1rem;
     pointer-events: none;
@@ -1687,15 +1654,15 @@ a:hover {
     cursor: pointer;
     border-radius: 100px;
     border: none;
-    background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: #ffffff;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 8px 20px rgba(66, 133, 244, 0.25);
     transition: var(--transition-normal);
 }
 
 .login-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.45);
+    box-shadow: 0 12px 25px rgba(66, 133, 244, 0.35);
 }
 
 .login-btn:active {
@@ -1707,12 +1674,17 @@ a:hover {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
     border-radius: var(--radius-sm);
-    color: #fca5a5;
+    color: #ffffff !important;
     font-size: 0.85rem;
     animation: shake 0.3s ease-in-out;
+}
+
+.login-error svg, .login-error i, .login-error .lucide {
+    color: #ef4444 !important; /* Set icon color to red */
+    stroke: #ef4444 !important; /* Set SVG stroke to red */
 }
 
 @keyframes shake {
@@ -1725,11 +1697,12 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-secondary);
     font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     margin-top: 0.4rem;
+    opacity: 0.7;
 }
 
 .login-card-indicator .indicator-dots {
@@ -1738,7 +1711,7 @@ a:hover {
 
 .login-global-footer {
     font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-secondary);
     font-weight: 600;
     letter-spacing: 0.18em;
     text-align: center;
@@ -1752,8 +1725,8 @@ a:hover {
 
 .logout-btn:hover {
     color: var(--accent) !important;
-    background: rgba(244, 63, 94, 0.1) !important;
-    border-color: rgba(244, 63, 94, 0.2) !important;
+    background: rgba(37, 99, 235, 0.1) !important;
+    border-color: rgba(37, 99, 235, 0.2) !important;
 }
 
 /* ==========================================================================
@@ -1862,9 +1835,9 @@ a:hover {
 }
 
 .header-actions .logout-btn {
-    background: rgba(244, 63, 94, 0.08) !important;
-    border: 1px solid rgba(244, 63, 94, 0.18) !important;
-    color: #f43f5e !important;
+    background: rgba(37, 99, 235, 0.08) !important;
+    border: 1px solid rgba(37, 99, 235, 0.18) !important;
+    color: #60a5fa !important;
     cursor: pointer;
     padding: 0.6rem;
     border-radius: 12px;
@@ -1874,16 +1847,16 @@ a:hover {
     width: 2.3rem;
     height: 2.3rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.1);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .header-actions .logout-btn:hover,
 .header-actions .logout-btn:active {
-    background: rgba(244, 63, 94, 0.2) !important;
-    border-color: rgba(244, 63, 94, 0.35) !important;
+    background: rgba(37, 99, 235, 0.2) !important;
+    border-color: rgba(37, 99, 235, 0.35) !important;
     color: #ffffff !important;
     transform: translateY(-2px) rotate(-4deg);
-    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.25);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
 }
 
 .header-actions .logout-btn i,
@@ -1918,7 +1891,7 @@ a:hover {
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
     color: #ffffff;
     font-weight: 700;
     display: flex;
@@ -1926,7 +1899,7 @@ a:hover {
     justify-content: center;
     font-size: 0.9rem;
     letter-spacing: 0.05em;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .profile-text h2 {
@@ -2010,24 +1983,21 @@ a:hover {
 }
 
 .stat-card-primary {
-    background: linear-gradient(135deg, rgba(29, 78, 216, 0.08) 0%, rgba(30, 58, 138, 0.08) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(29, 78, 216, 0.18);
+    background: #e0f2fe !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
 }
 
 .stat-card-secondary {
-    background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(3, 105, 161, 0.08) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(2, 132, 199, 0.18);
+    background: #f0f9ff !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
 }
 
 .stat-card-tertiary {
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(30, 58, 138, 0.08) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(37, 99, 235, 0.18);
+    background: #e0f2fe !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
 }
 
 .stat-icon-wrapper {
@@ -2238,4 +2208,225 @@ a:hover {
         border-radius: 18px !important;
     }
 }
+
+/* ==========================================================================
+   Contrast & Readability Overrides for Sky Blue Cards on Royal Blue Background
+   ========================================================================== */
+.card, .login-card {
+    color: #1e3a8a !important; /* Dark navy text inside cards */
+}
+
+.card h1, .card h2, .card h3, .card h4, 
+.login-card h1, .login-card h2, .login-card h3, .login-card h4 {
+    color: #1e3a8a !important; /* Dark headings inside cards */
+}
+
+.card label, .login-card label, .form-section-title {
+    color: #1e40af !important; /* Darker navy for labels inside cards */
+}
+
+.card .input-wrapper input, .login-card .login-input-wrapper input, .card .input-wrapper textarea {
+    color: #1e3a8a !important; /* Navy Blue text inside textboxes */
+    background: #ffffff !important; /* White input fields for perfect contrast */
+    box-shadow: inset 2px 2px 5px rgba(30, 58, 138, 0.15) !important;
+    border: 1px solid #93c5fd !important;
+}
+
+.card .input-wrapper input:focus, .login-card .login-input-wrapper input:focus, .card .input-wrapper textarea:focus {
+    color: #1e3a8a !important; /* Keep text Navy Blue on focus */
+    background: #ffffff !important; /* Keep background White on focus */
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+.card .input-icon, .login-card .login-input-icon {
+    color: #3b82f6 !important;
+}
+
+.section-subtitle {
+    color: #4b5563 !important; /* Muted grey/blue for subtitle inside cards */
+}
+
+.login-card-sunburst {
+    color: rgba(30, 58, 138, 0.08) !important;
+}
+
+.login-card-sunburst:hover {
+    color: rgba(30, 58, 138, 0.2) !important;
+}
+
+.login-card-indicator {
+    color: rgba(30, 58, 138, 0.6) !important;
+}
+
+.card th, .login-card th {
+    color: #1e40af !important;
+}
+
+.card td, .login-card td {
+    color: #1e3a8a !important;
+}
+
+.card td .tbl-prog-name, .login-card td .tbl-prog-name {
+    color: #1d4ed8 !important;
+}
+
+.card td .tbl-count-badge {
+    background: rgba(30, 58, 138, 0.08) !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
+}
+
+.card .btn-secondary, .login-card .btn-secondary {
+    background: rgba(30, 58, 138, 0.08) !important;
+    color: #1e3a8a !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+}
+
+.card .btn-secondary:hover, .login-card .btn-secondary:hover {
+    background: rgba(30, 58, 138, 0.12) !important;
+}
+
+.card .btn-outline, .login-card .btn-outline {
+    background: transparent !important;
+    color: #1e3a8a !important;
+    border: 1px solid rgba(30, 58, 138, 0.3) !important;
+}
+
+.card .btn-outline:hover, .login-card .btn-outline:hover {
+    background: rgba(30, 58, 138, 0.08) !important;
+    color: #1e3a8a !important;
+}
+
+/* Stat-card contrast styling inside sky blue panels */
+.stat-card .stat-content h2, .stat-card .stat-content h3 {
+    color: #1e3a8a !important;
+}
+
+.stat-card .stat-icon-wrapper svg, .stat-card .stat-icon-wrapper i, .stat-card .stat-icon-wrapper .lucide {
+    color: #1d4ed8 !important;
+    stroke: #1d4ed8 !important;
+}
+
+/* Welcome Profile Header Sky Blue Override */
+.premium-profile-header {
+    background: #e0f2fe !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
+    margin-bottom: 2rem !important; /* Add gap below welcome profile card */
+}
+
+.premium-profile-header h2,
+.premium-profile-header p,
+.premium-profile-header .system-status,
+.premium-profile-header .status-text {
+    color: #1e3a8a !important;
+}
+
+.premium-profile-header .status-dot {
+    background: #2563eb !important;
+}
+
+/* Control Center Actions Sky Blue Overrides */
+.premium-actions-grid .home-action-btn {
+    background: #e0f2fe !important;
+    border: 1px solid rgba(30, 58, 138, 0.15) !important;
+    color: #1e3a8a !important;
+}
+
+.premium-actions-grid .home-action-btn h4 {
+    color: #1e3a8a !important;
+}
+
+.premium-actions-grid .home-action-btn p {
+    color: #1e40af !important;
+}
+
+/* Clear/legible Placeholder style overrides inside white textboxes */
+.card .input-wrapper input::placeholder, 
+.login-card .login-input-wrapper input::placeholder, 
+.card .input-wrapper textarea::placeholder {
+    color: #4b5563 !important; /* Dark slate-grey for clear placeholder text contrast */
+    opacity: 0.8 !important; /* Make it sharp and not blurred */
+}
+
+/* Backup & Restore Hub description texts color override */
+.settings-card p, .settings-desc {
+    color: #1e3a8a !important; /* Dark Blue text inside Backup/Settings cards */
+}
+
+/* Detail Card Readability Overrides for Search Results */
+.detail-card {
+    color: #1e3a8a !important; /* Dark navy text */
+}
+
+.detail-card h2, .detail-card h3, .detail-card h4, .detail-card .detail-section-title, .detail-card .team-header {
+    color: #1e3a8a !important;
+}
+
+.detail-card .detail-section-content, 
+.detail-card .exec-name, 
+.detail-card .exec-role, 
+.detail-card .member-name {
+    color: #1e3a8a !important;
+}
+
+.detail-card .exec-subtitle {
+    color: #1e40af !important;
+}
+
+.detail-card .team-member-card {
+    background: #ffffff !important; /* White background for team cards */
+    border: 1px solid #cbd5e1 !important;
+}
+
+.detail-card .team-member-card:hover {
+    background: #f8fafc !important;
+}
+
+.detail-card .member-avatar {
+    background: rgba(59, 130, 246, 0.15) !important;
+    border: 1px solid #3b82f6 !important;
+    color: #1e3a8a !important;
+}
+
+.detail-card .member-phone-link {
+    color: #2563eb !important;
+}
+
+.detail-card .phone-action-btn {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+
+.detail-card .phone-action-btn:hover {
+    background: #1d4ed8 !important;
+}
+
+.detail-card .badge-pill {
+    background: rgba(37, 99, 235, 0.08) !important;
+    border: 1px solid rgba(37, 99, 235, 0.15) !important;
+    color: #1e3a8a !important;
+}
+
+.detail-card .exec-profile-card {
+    background: #ffffff !important; /* White background for executive profile */
+    border: 1px solid #cbd5e1 !important;
+}
+
+/* Force dark blue color for empty team text and member counts */
+.detail-card .team-header span {
+    color: #1e3a8a !important;
+}
+
+.detail-card .team-grid div[style*="var(--text-muted)"] {
+    color: #1e3a8a !important;
+}
+
+
+
+
+
+
+
 

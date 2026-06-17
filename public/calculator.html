@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeric Calculator | Spot & Program Durations</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: #e0e7ff; /* Flat soft grey-blue background */
+            --card-bg: #e0e7ff; /* Matches background */
+            --card-border: rgba(255, 255, 255, 0.4);
+            --text-main: #1e3a8a; /* Navy blue */
+            --text-sub: #1e40af; /* Lighter navy */
+            --btn-bg: #3b82f6; /* Blue */
+            --btn-hover: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2.5rem 1.5rem;
+            overflow-x: hidden;
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Base Card Styling (Light Theme) */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 6px 6px 16px #b5beeb, -6px -6px 16px #ffffff;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            display: none;
+        }
+
+        /* Summary Dashboard Layout */
+        .summary-dashboard {
+            width: 100%;
+        }
+
+        .dashboard-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Form Controls */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-sub);
+            letter-spacing: 0.02em;
+        }
+
+        .input-control {
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            outline: none;
+            width: 100%;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .input-control::placeholder {
+            color: var(--text-sub);
+            opacity: 0.65;
+            font-weight: 400;
+        }
+
+        .input-control:focus {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(66, 133, 244, 0.45);
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+        }
+
+        /* Bottom Grid Layout */
+        .calculators-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .calculator-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+        }
+
+        .card-header-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculate-btn {
+            background: var(--btn-bg);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.85rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .calculate-btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Output / Results Area */
+        .results-container {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .result-label {
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        /* Tooltip or instruction helper text */
+        .helper-text {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            font-style: italic;
+            margin-top: -0.4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .calculators-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .calculator-card {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-tag">DEVELOPED BY TEAM AIR DUTY OFFICER</div>
+
+    <div class="container">
+        
+        <!-- Summary Dashboard -->
+        <div class="glass-card summary-dashboard">
+            <h2 class="dashboard-title">Summary Dashboard</h2>
+            <div class="dashboard-grid">
+                
+                <div class="input-group">
+                    <label for="total-spot">Total duration of spot (Seconds)</label>
+                    <input type="text" id="total-spot" class="input-control" placeholder="Calculated automatically.." readonly>
+                </div>
+                
+                <div class="input-group">
+                    <label for="csm-spot">Total duration of CSM spot (Seconds)</label>
+                    <input type="text" id="csm-spot" class="input-control" placeholder="Enter duration..">
+                </div>
+                
+                <div class="input-group">
+                    <label for="local-spot">Total duration of local spot (Seconds)</label>
+                    <input type="text" id="local-spot" class="input-control" placeholder="Enter duration..">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Calculators Grid -->
+        <div class="calculators-grid">
+            
+            <!-- Card 1: Spot Calculator -->
+            <div class="glass-card calculator-card">
+                <div class="card-header-group">
+                    <h3 class="card-title">Spot Calculator</h3>
+                    <div class="card-subtitle">Developed by Team Duty Officers</div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="spot-seconds">Enter Number (Total Seconds)</label>
+                        <input type="text" id="spot-seconds" class="input-control" placeholder="Enter digits...">
+                        <span class="helper-text">Tip: You can enter numbers separated by spaces (e.g. 10 15 20) to sum them up!</span>
+                    </div>
+                    
+                    <button type="button" class="calculate-btn" onclick="calculateSpot()">Calculate</button>
+                    
+                    <div class="results-container">
+                        <div class="result-row">
+                            <span class="result-label">Min.</span>
+                            <span class="result-value" id="spot-result-min">0</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Sec.</span>
+                            <span class="result-value" id="spot-result-sec">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Sponsored Program -->
+            <div class="glass-card calculator-card">
+                <div class="card-header-group">
+                    <h3 class="card-title">Sponsored Program</h3>
+                    <div class="card-subtitle">Duration of Sponsored program</div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="sponsored-duration">Enter the total duration of sponsored programme (Minutes)</label>
+                        <input type="text" id="sponsored-duration" class="input-control" placeholder="Enter duration..">
+                    </div>
+                    
+                    <button type="button" class="calculate-btn" onclick="calculateSponsored()">Calculate</button>
+                    
+                    <div class="results-container">
+                        <div class="result-row">
+                            <span class="result-label">Result (FCT Seconds):</span>
+                            <span class="result-value" id="sponsored-result">0</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Formatted:</span>
+                            <span class="result-value" id="sponsored-formatted">0s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Sponsorship Program -->
+            <div class="glass-card calculator-card">
+                <div class="card-header-group">
+                    <h3 class="card-title">Sponsorship Program</h3>
+                    <div class="card-subtitle">Duration of Sponsorship Program</div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="sponsorship-duration">Enter the total duration of sponsored programme (Minutes)</label>
+                        <input type="text" id="sponsorship-duration" class="input-control" placeholder="Enter duration..">
+                    </div>
+                    
+                    <button type="button" class="calculate-btn" onclick="calculateSponsorship()">Calculate</button>
+                    
+                    <div class="results-container">
+                        <div class="result-row">
+                            <span class="result-label">Result (FCT Seconds):</span>
+                            <span class="result-value" id="sponsorship-result">0</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Formatted:</span>
+                            <span class="result-value" id="sponsorship-formatted">0s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --- Summary Dashboard Live Calculation ---
+        const csmInput = document.getElementById('csm-spot');
+        const localInput = document.getElementById('local-spot');
+        const totalInput = document.getElementById('total-spot');
+
+        function updateSummaryTotal() {
+            const csmVal = parseDurationString(csmInput.value);
+            const localVal = parseDurationString(localInput.value);
+            
+            const total = csmVal + localVal;
+            totalInput.value = total > 0 ? total : '';
+        }
+
+        csmInput.addEventListener('input', updateSummaryTotal);
+        localInput.addEventListener('input', updateSummaryTotal);
+
+        // Helper to parse numbers/lists (sums up numbers if spaces/commas are typed)
+        function parseDurationString(str) {
+            if (!str) return 0;
+            // Split by space, comma or plus sign
+            const parts = str.trim().split(/[\s,+/]+/);
+            let sum = 0;
+            parts.forEach(part => {
+                const num = parseFloat(part);
+                if (!isNaN(num)) {
+                    sum += num;
+                }
+            });
+            return sum;
+        }
+
+        // --- Spot Calculator ---
+        function calculateSpot() {
+            const inputVal = document.getElementById('spot-seconds').value;
+            const totalSeconds = parseDurationString(inputVal);
+            
+            const min = Math.floor(totalSeconds / 60);
+            const sec = Math.round(totalSeconds % 60);
+            
+            document.getElementById('spot-result-min').textContent = min;
+            document.getElementById('spot-result-sec').textContent = sec;
+        }
+
+        // --- Sponsored Program FCT Calculator (4 seconds per minute) ---
+        function calculateSponsored() {
+            const minutes = parseFloat(document.getElementById('sponsored-duration').value);
+            if (isNaN(minutes) || minutes <= 0) {
+                document.getElementById('sponsored-result').textContent = '0';
+                document.getElementById('sponsored-formatted').textContent = '0s';
+                return;
+            }
+            
+            // Akashvani standard FCT formula: 4 seconds of commercial time per 1 minute of sponsored program
+            const fctSeconds = Math.round(minutes * 4);
+            
+            document.getElementById('sponsored-result').textContent = fctSeconds;
+            
+            const fctMin = Math.floor(fctSeconds / 60);
+            const fctSec = fctSeconds % 60;
+            document.getElementById('sponsored-formatted').textContent = 
+                fctMin > 0 ? `${fctMin}m ${fctSec}s` : `${fctSec}s`;
+        }
+
+        // --- Sponsorship Program FCT Calculator (3 seconds per minute) ---
+        function calculateSponsorship() {
+            const minutes = parseFloat(document.getElementById('sponsorship-duration').value);
+            if (isNaN(minutes) || minutes <= 0) {
+                document.getElementById('sponsorship-result').textContent = '0';
+                document.getElementById('sponsorship-formatted').textContent = '0s';
+                return;
+            }
+            
+            // Akashvani standard FCT formula for Sponsorship mode: e.g. 3 seconds of commercial time per 1 minute of program
+            const fctSeconds = Math.round(minutes * 3);
+            
+            document.getElementById('sponsorship-result').textContent = fctSeconds;
+            
+            const fctMin = Math.floor(fctSeconds / 60);
+            const fctSec = fctSeconds % 60;
+            document.getElementById('sponsorship-formatted').textContent = 
+                fctMin > 0 ? `${fctMin}m ${fctSec}s` : `${fctSec}s`;
+        }
+    </script>
+</body>
+</html>
