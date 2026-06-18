@@ -89,7 +89,8 @@ async function query(sql, params = []) {
                 // Check if this is an INSERT statement and doesn't already have RETURNING
                 const isInsert = /^\s*INSERT\s+/i.test(pgSql);
                 const hasReturning = /\bRETURNING\b/i.test(pgSql);
-                if (isInsert && !hasReturning) {
+                const isAppSettings = /\bapp_settings\b/i.test(pgSql);
+                if (isInsert && !hasReturning && !isAppSettings) {
                     pgSql += ' RETURNING id';
                 }
 

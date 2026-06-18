@@ -114,6 +114,37 @@ const verifyToken = (req, res, next) => {
 app.use('/api/programmes', verifyToken, programmesRouter);
 
 
+// ---- Settings API ----
+app.get('/api/settings', async (req, res) => {
+    try {
+        const dbConn = require('./db/queryWrapper');
+        const [rows] = await dbConn.query('SELECT setting_key, setting_value FROM app_settings');
+        const settings = {};
+        if (rows) {
+            rows.forEach(r => settings[r.setting_key] = r.setting_value);
+        }
+        res.json({ success: true, settings });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+app.post('/api/settings', verifyToken, async (req, res) => {
+    try {
+        const dbConn = require('./db/queryWrapper');
+        const { key, value } = req.body;
+        const [existing] = await dbConn.query('SELECT setting_key FROM app_settings WHERE setting_key = ?', [key]);
+        if (existing && existing.length > 0) {
+            await dbConn.query('UPDATE app_settings SET setting_value = ? WHERE setting_key = ?', [value, key]);
+        } else {
+            await dbConn.query('INSERT INTO app_settings (setting_key, setting_value) VALUES (?, ?)', [key, value]);
+        }
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // ---- Status & Health Check ----
 app.get('/api/status', (req, res) => {
     const dbConn = require('./db/connection');

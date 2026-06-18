@@ -3,22 +3,22 @@
    ========================================================================== */
 :root {
     /* Color Palette - Option D: Neumorphic Soft Blue Theme */
-    --bg-base: #e0e7ff; /* Flat soft grey-blue background */
+    --bg-base: #00B4D8; /* Custom background color */
     --bg-surface: #e0e7ff; /* Matches background for neumorphic look */
     --bg-surface-hover: #e9efff;
     --border-color: rgba(255, 255, 255, 0.4);
     --border-focus: rgba(30, 58, 138, 0.2);
     
-    --primary: #3b82f6; /* Blue */
+    --primary: #6666ff; /* Blue */
     --primary-glow: rgba(59, 130, 246, 0.15);
     --secondary: #2563eb; /* Darker Blue */
     --accent: #60a5fa; /* Light Blue */
     
     --text-primary: #1e3a8a; /* Navy blue */
     --text-secondary: #1e40af; /* Lighter navy */
-    --text-muted: #3b82f6;
+    --text-muted: #6666ff;
     
-    --success: #3b82f6;
+    --success: #6666ff;
     --warning: #60a5fa;
     --danger: #1d4ed8;
     
@@ -185,21 +185,21 @@ a:hover {
 
 
 .brand-text h1 span {
-    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #6666ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .brand-text p {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #1e3a8a !important;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .brand-text .developer-tag {
     font-size: 1.3rem;
-    color: var(--text-muted);
+    color: #1e3a8a !important;
     display: block;
     margin-top: 0.15rem;
     font-weight: 500;
@@ -1073,6 +1073,12 @@ a:hover {
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
     font-size: 0.9rem;
+    background-color: #1e3a8a !important; /* Navy Blue background */
+    color: #ffffff !important; /* White text */
+}
+
+.table-search-input .input-icon {
+    color: #ffffff !important; /* Make search icon white for contrast */
 }
 
 .table-container {
@@ -1089,6 +1095,7 @@ a:hover {
 
 .program-table th, .program-table td {
     padding: 1.1rem 1.5rem;
+    border: 1px solid rgba(30, 58, 138, 0.3); /* Darker blue border for visible Excel grid */
 }
 
 .program-table th {
@@ -1146,7 +1153,7 @@ a:hover {
     cursor: pointer;
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--border-color);
-    color: var(--text-secondary);
+    color: var(--danger); /* Red color for clearly visible icons */
     width: 2.1rem;
     height: 2.1rem;
     border-radius: 6px;
@@ -1236,7 +1243,7 @@ a:hover {
 }
 
 .export-icon {
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #6666ff 0%, #1d4ed8 100%);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 

@@ -258,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initPexForm();
     initPexAutocomplete();
     initManageList();
+    initAppSettings();
     initSettingsBackup();
 
     // Render Database Counters
@@ -1036,6 +1037,12 @@ window.deleteProgramme = function(id) {
     if (!prog) return;
 
     if (confirm(`Are you sure you want to delete "${prog.name}"? This action cannot be undone.`)) {
+        const pwd = prompt("Enter admin password to delete programme:");
+        if (pwd !== "Umbrella@Rain") {
+            showToast("Incorrect admin password.", "danger");
+            return;
+        }
+        
         // Delete item
         programmes = programmes.filter(p => p.id !== id);
         saveDatabase();
@@ -1057,6 +1064,26 @@ window.deleteProgramme = function(id) {
 // ==========================================================================
 // Backup, Import, & Restoration Controls
 // ==========================================================================
+function initAppSettings() {
+    // Fetch initial setting from localStorage
+    const val = localStorage.getItem('data_effective_from') || 'Not Set';
+    document.getElementById('home-data-effective').textContent = val;
+    document.getElementById('setting-data-effective').value = val === 'Not Set' ? '' : val;
+
+    // Bind save button
+    const saveBtn = document.getElementById('save-data-effective-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            const inputVal = document.getElementById('setting-data-effective').value.trim();
+            if (!inputVal) return showToast('Please enter a date or label.', 'warning');
+            
+            localStorage.setItem('data_effective_from', inputVal);
+            document.getElementById('home-data-effective').textContent = inputVal;
+            showToast('Setting saved successfully!', 'success');
+        });
+    }
+}
+
 function initSettingsBackup() {
     const exportBtn = document.getElementById("export-db-btn");
     const importInput = document.getElementById("import-db-input");

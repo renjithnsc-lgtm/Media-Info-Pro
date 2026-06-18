@@ -13,10 +13,13 @@ async function runTest() {
         const [rows] = await db.query('SELECT 1');
         console.log('SELECT 1 result:', rows, `took ${Date.now() - start}ms`);
         
-        console.log('Running count of programmes...');
-        const countStart = Date.now();
-        const [progRows] = await db.query('SELECT COUNT(*) as count FROM programmes');
-        console.log('Programmes count:', progRows, `took ${Date.now() - countStart}ms`);
+        console.log('Searching for bullet names...');
+        const [bulletRows] = await db.query("SELECT name FROM programmes WHERE name LIKE '%•%' OR name LIKE '%bullet%'");
+        console.log('Bullet names found:', bulletRows);
+        
+        console.log('Searching for SAJEEV...');
+        const [sajeevRows] = await db.query("SELECT name FROM programmes WHERE exec_name LIKE '%SAJEEV%'");
+        console.log('Sajeev programmes:', sajeevRows);
         
         process.exit(0);
     } catch (err) {

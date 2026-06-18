@@ -117,6 +117,9 @@
                         <div class="system-status">
                             <span class="status-dot"></span>
                             <span class="status-text">Cloud Sync Online</span>
+                            <div style="margin-top: 5px; font-size: 0.85rem;">
+                                Data Effective From: <span id="home-data-effective" style="font-weight: bold;">Not Set</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -149,7 +152,7 @@
                     <h3 class="home-section-title">Control Center</h3>
                     <div class="home-actions-grid premium-actions-grid">
                         <button class="home-action-btn home-action-search" onclick="switchTab('search-tab')">
-                            <div class="action-icon-box" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+                            <div class="action-icon-box" style="background: linear-gradient(135deg, #1e3a8a 0%, #6666ff 100%);">
                                 <i data-lucide="search"></i>
                             </div>
                             <div class="action-btn-text">
@@ -426,6 +429,29 @@
                 </div>
 
                 <div class="settings-grid">
+                    <!-- Data Effective From Card -->
+                    <div class="card settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-icon-wrapper export-icon">
+                                <i data-lucide="calendar"></i>
+                            </div>
+                            <div>
+                                <h3>Data Effective From</h3>
+                                <p>Set the date or label to show when the current data was last verified.</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="input-wrapper">
+                                <i data-lucide="calendar" class="input-icon"></i>
+                                <input type="text" id="setting-data-effective" placeholder="e.g. 18-June-2026">
+                            </div>
+                            <button id="save-data-effective-btn" class="btn btn-primary full-width" style="margin-top: 1rem;">
+                                <i data-lucide="save"></i>
+                                <span>Save Setting</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Backup Card -->
                     <div class="card settings-card">
                         <div class="settings-card-header">

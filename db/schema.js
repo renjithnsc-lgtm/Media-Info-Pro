@@ -56,6 +56,14 @@ async function createTables() {
         ON team_members (programme_id)
     `);
 
+    // Settings table
+    await db.query(`
+        CREATE TABLE IF NOT EXISTS app_settings (
+            setting_key VARCHAR(100) PRIMARY KEY,
+            setting_value TEXT NOT NULL
+        )
+    `);
+
     console.log('[Schema] ✅ Tables ready.');
 }
 

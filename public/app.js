@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initPexForm();
     initPexAutocomplete();
     initManageList();
+    initAppSettings();
     initSettingsBackup();
     lucide.createIcons();
 });
@@ -937,6 +938,12 @@ async function renderManageTable() {
 
 window.deleteProgramme = async function (id) {
     if (!confirm("Are you sure you want to delete this programme? This action cannot be undone.")) return;
+    
+    const pwd = prompt("Enter admin password to delete programme:");
+    if (pwd !== "Umbrella@Rain") {
+        showToast("Incorrect admin password.", "danger");
+        return;
+    }
 
     try {
         const res = await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
@@ -967,6 +974,57 @@ window.deleteProgramme = async function (id) {
 // ==========================================================================
 // Backup, Import, & Restoration Controls
 // ==========================================================================
+async function initAppSettings() {
+    // Fetch initial setting
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        
+        const res = await fetch(`${API_BASE.replace('/programmes', '/settings')}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (json.success && json.settings) {
+            const val = json.settings['data_effective_from'] || 'Not Set';
+            document.getElementById('home-data-effective').textContent = val;
+            document.getElementById('setting-data-effective').value = val === 'Not Set' ? '' : val;
+        }
+    } catch (e) {
+        console.error('Error fetching settings:', e);
+    }
+
+    // Bind save button
+    const saveBtn = document.getElementById('save-data-effective-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            const inputVal = document.getElementById('setting-data-effective').value.trim();
+            if (!inputVal) return showToast('Please enter a date or label.', 'warning');
+            
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${API_BASE.replace('/programmes', '/settings')}`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({ key: 'data_effective_from', value: inputVal })
+                });
+                const json = await res.json();
+                if (json.success) {
+                    showToast('Setting saved successfully!', 'success');
+                    document.getElementById('home-data-effective').textContent = inputVal;
+                } else {
+                    showToast('Failed to save setting.', 'danger');
+                }
+            } catch (e) {
+                console.error('Save error:', e);
+                showToast('Network error while saving.', 'danger');
+            }
+        });
+    }
+}
+
 function initSettingsBackup() {
     const exportBtn = document.getElementById("export-db-btn");
     const importInput = document.getElementById("import-db-input");
